@@ -29,10 +29,11 @@
 		3497D22D2E4AE91100AC0A82 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D22C2E4AE91100AC0A82 /* ErrorHandler.swift */; };
 		3497D22F2E4B0C7400AC0A82 /* AbstractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D22E2E4B0C7400AC0A82 /* AbstractViewController.swift */; };
 		3497D2312E4B113A00AC0A82 /* ViewModelWithPagesDisposeBagAndLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D2302E4B113A00AC0A82 /* ViewModelWithPagesDisposeBagAndLoading.swift */; };
-		3497D2412E4B16B500AC0A82 /* PopRepoLuizaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D23F2E4B16B500AC0A82 /* PopRepoLuizaTests.swift */; };
-		3497D2432E4B1D0900AC0A82 /* tete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D2422E4B1D0900AC0A82 /* tete.swift */; };
+		3497D2432E4B1D0900AC0A82 /* NetworkTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D2422E4B1D0900AC0A82 /* NetworkTest.swift */; };
 		3497D2462E4B764100AC0A82 /* PullRequestWVViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D2452E4B764100AC0A82 /* PullRequestWVViewModel.swift */; };
 		3497D2492E4BBCB300AC0A82 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3497D2482E4BBCB300AC0A82 /* NetworkError.swift */; };
+		34D54D782E4BE7A600475FD4 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D54D772E4BE7A600475FD4 /* Mocks.swift */; };
+		34D54D7C2E4BF97800475FD4 /* ListRepositoriesViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D54D7B2E4BF97800475FD4 /* ListRepositoriesViewModelTest.swift */; };
 		D661A24BF3D2B22911C307D8 /* Pods_PopRepoLuiza.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0802B5E4C634F20DABA23F /* Pods_PopRepoLuiza.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,10 +73,11 @@
 		3497D22E2E4B0C7400AC0A82 /* AbstractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractViewController.swift; sourceTree = "<group>"; };
 		3497D2302E4B113A00AC0A82 /* ViewModelWithPagesDisposeBagAndLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelWithPagesDisposeBagAndLoading.swift; sourceTree = "<group>"; };
 		3497D2362E4B166500AC0A82 /* PopRepoLuizaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopRepoLuizaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3497D23F2E4B16B500AC0A82 /* PopRepoLuizaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopRepoLuizaTests.swift; sourceTree = "<group>"; };
-		3497D2422E4B1D0900AC0A82 /* tete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tete.swift; sourceTree = "<group>"; };
+		3497D2422E4B1D0900AC0A82 /* NetworkTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTest.swift; sourceTree = "<group>"; };
 		3497D2452E4B764100AC0A82 /* PullRequestWVViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestWVViewModel.swift; sourceTree = "<group>"; };
 		3497D2482E4BBCB300AC0A82 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		34D54D772E4BE7A600475FD4 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		34D54D7B2E4BF97800475FD4 /* ListRepositoriesViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRepositoriesViewModelTest.swift; sourceTree = "<group>"; };
 		3F0802B5E4C634F20DABA23F /* Pods_PopRepoLuiza.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopRepoLuiza.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C3877EBC5688C61E6433EC /* Pods-PopRepoLuizaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopRepoLuizaTests.release.xcconfig"; path = "Target Support Files/Pods-PopRepoLuizaTests/Pods-PopRepoLuizaTests.release.xcconfig"; sourceTree = "<group>"; };
 		7CB95F7E84F21BCE2946CFA1 /* Pods-PopRepoLuizaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopRepoLuizaTests.debug.xcconfig"; path = "Target Support Files/Pods-PopRepoLuizaTests/Pods-PopRepoLuizaTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -261,8 +263,9 @@
 		3497D2402E4B16B500AC0A82 /* PopRepoLuizaTests */ = {
 			isa = PBXGroup;
 			children = (
-				3497D23F2E4B16B500AC0A82 /* PopRepoLuizaTests.swift */,
-				3497D2422E4B1D0900AC0A82 /* tete.swift */,
+				34D54D762E4BE78700475FD4 /* Support */,
+				3497D2422E4B1D0900AC0A82 /* NetworkTest.swift */,
+				34D54D7B2E4BF97800475FD4 /* ListRepositoriesViewModelTest.swift */,
 			);
 			path = PopRepoLuizaTests;
 			sourceTree = "<group>";
@@ -283,6 +286,14 @@
 				3497D2152E4A8C9700AC0A82 /* RequestObservable.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		34D54D762E4BE78700475FD4 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				34D54D772E4BE7A600475FD4 /* Mocks.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		49AC2F3FF2460001F0AACD9A /* Frameworks */ = {
@@ -529,8 +540,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3497D2412E4B16B500AC0A82 /* PopRepoLuizaTests.swift in Sources */,
-				3497D2432E4B1D0900AC0A82 /* tete.swift in Sources */,
+				34D54D7C2E4BF97800475FD4 /* ListRepositoriesViewModelTest.swift in Sources */,
+				34D54D782E4BE7A600475FD4 /* Mocks.swift in Sources */,
+				3497D2432E4B1D0900AC0A82 /* NetworkTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,12 +17,15 @@ PODS:
   - RxRelay (6.9.0):
     - RxSwift (= 6.9.0)
   - RxSwift (6.9.0)
+  - RxTest (6.9.0):
+    - RxSwift (= 6.9.0)
 
 DEPENDENCIES:
   - Nimble
   - Quick
   - RxCocoa (= 6.9.0)
   - RxSwift (= 6.9.0)
+  - RxTest
 
 SPEC REPOS:
   trunk:
@@ -36,6 +39,7 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - RxTest
 
 SPEC CHECKSUMS:
   CwlCatchException: 7acc161b299a6de7f0a46a6ed741eae2c8b4d75a
@@ -48,7 +52,8 @@ SPEC CHECKSUMS:
   RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
+  RxTest: fa7749822359a10a19b9fa32b80dbe608e4ce44e
 
-PODFILE CHECKSUM: 1cb3bc2b6a46bf12b6afbdfba2a94cf30f9acd9a
+PODFILE CHECKSUM: 9e16de567e84aff559a3495481723ebb01f14c61
 
 COCOAPODS: 1.16.2

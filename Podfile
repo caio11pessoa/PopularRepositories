@@ -13,6 +13,7 @@ target 'PopRepoLuiza' do
 
     pod 'Quick'
     pod 'Nimble'
+    pod 'RxTest'
   end
 
 end

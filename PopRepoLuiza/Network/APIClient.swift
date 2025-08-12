@@ -25,7 +25,6 @@ class APIClient {
         )
         
         let request = URLRequest(url: components.url!)
-        print("URL >> \(request.url!)")
         
         return requestObservable.callAPI(request: request)
     }
@@ -34,11 +33,10 @@ class APIClient {
         let components = createComponents(pathComponents: ["repos", user, repository, "pulls"], queryItems: [.init(name: "page", value: page)])
         let request = URLRequest(url: components.url!)
 
-        print("URL >> \(request.url!)")
         return requestObservable.callAPI(request: request)
     }
     
-    private func createComponents(scheme: String = "https", host: String =  "api.github.com", pathComponents: [String], queryItems: [URLQueryItem]? = nil) -> URLComponents {
+    internal func createComponents(scheme: String = "https", host: String =  "api.github.com", pathComponents: [String], queryItems: [URLQueryItem]? = nil) -> URLComponents {
         
         var components = URLComponents()
         

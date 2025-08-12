@@ -10,45 +10,34 @@ import RxSwift
 import RxCocoa
 
 class ListRepositoriesViewModel: ViewModelWithPagesDisposeBagAndLoading {
+    
     var repositories = BehaviorRelay<[Repository]>(value: [])
+    
+    func setupBindings(tableView: UITableView, viewController: UIViewController){
+        setupPageBinding()
+        setupRepositoriesBinding(tableView: tableView)
+        setupTableViewBindings(tableView: tableView, viewController: viewController)
+    }
     
     func fetchRepositories(){
         let client = APIClient.shared
         do {
             try client.getSwiftPopRepositories(page: "\(self.page.value)")
                 .subscribe(
-                    onNext: { result in
-                        if(self.verifyEmptyDataSource(result: result)){
-                            let message = "Nenhum resultado foi encontrado"
-                            self.requestErrorMessage.accept(message)
-                        } else{
-                            self.repositories.accept(self.repositories.value + result.items)
-                        }
-                    },
-                    onError: { error in
-                        let message = error.localizedDescription
-                        self.requestErrorMessage.accept(message)
-                    },
-                    onCompleted: {
-                        self.isLoading.accept(false)
-                    }
-                ).disposed(by: disposeBag)
+                    onNext: onNextfetchRepositories,
+                    onError: onErrorfetchRepositories,
+                    onCompleted: onCompletedfetchRepositories
+                )
+                .disposed(by: disposeBag)
         } catch {
-            let message = "Erro inesperado: \(error.localizedDescription)"
-            requestErrorMessage.accept(message)
-            self.isLoading.accept(false)
+            catchFetchRepositories(error: error)
         }
     }
     
     func setupPageBinding(){
         page
             .skip(1)
-            .map{$0}
-            .subscribe(onNext: { page in
-                
-                self.fetchRepositories()
-                
-            }).disposed(by: disposeBag)
+            .subscribe(onNext: onNextSetupPageBinding).disposed(by: disposeBag)
     }
     
     func setupRepositoriesBinding(tableView: UITableView){
@@ -59,36 +48,86 @@ class ListRepositoriesViewModel: ViewModelWithPagesDisposeBagAndLoading {
             .disposed(by: disposeBag)
     }
     
-    func setupTableViewBindings(tableView: UITableView, viewController: UIViewController){
-        
+    func setupInfinitScrollBinding(tableView: UITableView){
         tableView.rx.willDisplayCell
-            .subscribe(onNext: { _, indexPath in
-                let lastSectionIndex = tableView.numberOfSections - 1
-                let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+            .subscribe(onNext: { [weak self] _, indexPath in
+                guard let self = self else { return }
                 
-                if indexPath.section == lastSectionIndex && indexPath.row == lastRowIndex {
-                    self.isLoading.accept(true)
-                    self.page.accept(self.page.value + 1)
+                let isLastCell = self.isLastCell(indexPath: indexPath, tableView: tableView)
+                if isLastCell {
+                    self.loadNextPage()
                 }
             }).disposed(by: disposeBag)
-        
+    }
+    
+    func setupItemSelectionBinding(tableView: UITableView, viewController: UIViewController){
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 
-                let repository = self.repositories.value[indexPath.row]
-                
-                let pullRequestVC = ListPullRequestViewController()
-                pullRequestVC.viewModel.userName = repository.owner.login
-                pullRequestVC.viewModel.repositoryName = repository.name
-                
-                viewController.navigationController?.pushViewController(pullRequestVC, animated: true)
+                self.navigateToPullRequests(for: indexPath, from: viewController)
                 
             })
             .disposed(by: disposeBag)
     }
     
-    private func verifyEmptyDataSource(result: RepositoryModel) -> Bool {
+    func setupTableViewBindings(tableView: UITableView, viewController: UIViewController){
+        
+        setupInfinitScrollBinding(tableView: tableView)
+        setupItemSelectionBinding(tableView: tableView, viewController: viewController)
+        
+    }
+    
+    internal func onNextfetchRepositories(result: RepositoryModel) {
+        if(self.verifyEmptyDataSource(result: result)){
+            self.requestErrorMessage.accept("Nenhum resultado foi encontrado")
+        } else{
+            self.repositories.accept(repositories.value + result.items)
+        }
+    }
+    
+    internal func onErrorfetchRepositories(error: any Error){
+        let message = error.localizedDescription
+        self.requestErrorMessage.accept(message)
+    }
+    
+    internal func onCompletedfetchRepositories(){
+        self.isLoading.accept(false)
+    }
+    
+    internal func catchFetchRepositories(error: any Error){
+        let message = "Erro inesperado: \(error.localizedDescription)"
+        requestErrorMessage.accept(message)
+        self.isLoading.accept(false)
+    }
+    
+    internal func onNextSetupPageBinding(_: Int){
+        self.fetchRepositories()
+    }
+    
+    internal func navigateToPullRequests(for indexPath: IndexPath, from viewController: UIViewController){
+        let repository = self.repositories.value[indexPath.row]
+        let pullRequestViewController = ListPullRequestViewController()
+        
+        pullRequestViewController.viewModel.userName = repository.owner.login
+        pullRequestViewController.viewModel.repositoryName = repository.name
+        
+        viewController.navigationController?.pushViewController(pullRequestViewController, animated: true)
+    }
+    
+    internal func loadNextPage() {
+        isLoading.accept(true)
+        page.accept(page.value + 1)
+    }
+    
+    internal func isLastCell(indexPath: IndexPath, tableView: UITableView) -> Bool {
+        let lastSectionIndex = tableView.numberOfSections - 1
+        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+        
+        return indexPath.section == lastSectionIndex && indexPath.row == lastRowIndex
+    }
+    
+    internal func verifyEmptyDataSource(result: RepositoryModel) -> Bool {
         return result.total_count == 0 && page.value == 1
     }
     
