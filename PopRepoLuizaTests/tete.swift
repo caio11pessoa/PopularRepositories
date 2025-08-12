@@ -6,11 +6,11 @@
 //
 
 import Testing
+import Quick
+import Nimble
 
-struct tete {
-
-    @Test func <#test function name#>() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    }
-
-}
+//class tete: QuickSpec{
+//    override func spec() {
+//        
+//    }
+//}

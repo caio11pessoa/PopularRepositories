@@ -37,13 +37,6 @@ class repositoryListCell: AbstractCell {
         return label
     }()
     
-    private let ownerFullname: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 12)
-        label.textColor = UIColor.gray
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -67,7 +60,7 @@ class repositoryListCell: AbstractCell {
             arrangedSubviews: [nameAndDescriptionStack, forksAndStarsStack], axis: .vertical, spacing: 12, alignment: .leading)
         
         let rightStack = setStack(
-            arrangedSubviews: [profilePicture, userName, ownerFullname], axis: .vertical, alignment: .center)
+            arrangedSubviews: [profilePicture, userName], axis: .vertical, alignment: .center)
         
         let mainStack = setStack(arrangedSubviews: [leftStack, rightStack], distribution: .equalSpacing)
         mainStack.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +83,6 @@ class repositoryListCell: AbstractCell {
         title.text = repository.name
         body.text = repository.description
         userName.text = repository.owner.login
-        ownerFullname.text = "Nome Sobrenome" // Precisa buscar em outra requisição :(
         forksCount.text = "\(repository.forks_count)"
         starsCount.text = "\(repository.stargazers_count)"
         profilePicture.loadRemoteImage(url: repository.owner.avatar_url)

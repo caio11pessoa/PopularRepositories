@@ -10,8 +10,7 @@ import RxSwift
 import RxCocoa
 
 
-class 
-ewController: AbstractViewController {
+class ListRepositoriesViewController: AbstractViewController {
     var viewModel: ListRepositoriesViewModel = ListRepositoriesViewModel()
     
     let tableView: UITableView = {
@@ -37,8 +36,14 @@ ewController: AbstractViewController {
         setupNavigation()
         subViews()
         constraints()
-        viewModel.setupBindings(tableView: tableView, viewController: self, loadingIndicator: loadingIndicator)
-        viewModel.fetchRepositories(1)
+        viewModel.setupPageBinding()
+        viewModel.setupRepositoriesBinding(tableView: tableView)
+        viewModel.setupTableViewBindings(tableView: tableView, viewController: self)
+        viewModel.setupLoadingBindings(loadingIndicator: loadingIndicator)
+        viewModel.fetchRepositories()
+        viewModel.setupViewError(viewController: self) {
+            self.viewModel.fetchRepositories()
+        }
     }
     
     func setupNavigation(){
@@ -46,7 +51,7 @@ ewController: AbstractViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
         navigationController?.navigationBar.standardAppearance = navigationAppearance
     }
-
+    
     func subViews(){
         view.addSubview(tableView)
         view.addSubview(loadingIndicator)

@@ -8,34 +8,28 @@
 import UIKit
 import WebKit
 
-class PullRequestWebViewController: UIViewController {
-    var urlString: String?
-    private var webView: WKWebView!
+class PullRequestWebViewController: AbstractViewController {
+    var viewModel: PullRequestWVViewModel = PullRequestWVViewModel()
+    lazy private var webView: WKWebView = {
+        var webView = WKWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.navigationDelegate = self
+        return webView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupWebView()
+        viewModel.setupLoadingBindings(loadingIndicator: loadingIndicator)
+        viewModel.webViewWithErrorBindings(viewController: self)
         loadRequest()
     }
     
-//    private func setupNavigation() {
-//        title = "Pull Request"
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(
-//            barButtonSystemItem: .close,
-//            target: self,
-//            action: #selector(closeModal)
-//        )
-//    }
-//    
-//    @objc private func closeModal() {
-//        dismiss(animated: true)
-//    }
-//    
     private func setupWebView() {
-        webView = WKWebView(frame: .zero)
-        webView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(webView)
+        view.addSubview(loadingIndicator)
         
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -46,8 +40,24 @@ class PullRequestWebViewController: UIViewController {
     }
     
     private func loadRequest() {
-        guard let urlString = urlString, let url = URL(string: urlString) else { return }
-        let request = URLRequest(url: url)
+        guard let request = viewModel.makeRequest() else {
+            return
+        }
         webView.load(request)
+    }
+}
+
+extension PullRequestWebViewController: WKNavigationDelegate{
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        viewModel.isLoading.accept(true)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        viewModel.isLoading.accept(false)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
+        viewModel.isLoading.accept(false)
+        viewModel.viewWithError.accept(true)
     }
 }

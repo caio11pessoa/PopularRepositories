@@ -11,7 +11,7 @@ import RxSwift
 
 class APIClient {
     static var shared = APIClient()
-    lazy var requestObservable = RequestObservable(config: .default)
+    var requestObservable = RequestObservable(config: .default)
     
     func getSwiftPopRepositories(page: String = "1") throws -> Observable<RepositoryModel> {
         
@@ -47,8 +47,4 @@ class APIClient {
         
         return components
     }
-    
-    //    func createQueryItems(for parameters: [String: Any]) -> [URLQueryItem] {
-    //        return parameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
-    //    }
 }

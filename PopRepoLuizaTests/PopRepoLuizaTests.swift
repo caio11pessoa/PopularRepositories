@@ -5,12 +5,22 @@
 //  Created by Caio de Almeida Pessoa on 12/08/25.
 //
 
-import Testing
+import Quick
+import Nimble
+@testable import PopRepoLuiza
 
-struct PopRepoLuizaTests {
+final class PopRepoLuizaTests: QuickSpec {
+    override class func spec() {
+        describe("Teste") {
+            var test: String!
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+            beforeEach {
+                test = "10"
+            }
+
+            it("deve ter o valor 10") {
+                expect(test).to(equal("10"))
+            }
+        }
     }
-
 }

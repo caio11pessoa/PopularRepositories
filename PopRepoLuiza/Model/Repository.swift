@@ -16,6 +16,7 @@ struct Repository: Codable {
 }
 
 struct RepositoryModel: Codable {
+    var total_count: Int
     var items: [Repository]
 }
 

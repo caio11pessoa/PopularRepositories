@@ -1,5 +1,5 @@
 //
-//  CellProtocol.swift
+//  AbstractCell.swift
 //  PopRepoLuiza
 //
 //  Created by Caio de Almeida Pessoa on 11/08/25.
@@ -31,13 +31,13 @@ class AbstractCell: UITableViewCell, CellProtocol {
     }()
     
     var profilePicture: UIImageView = {
-        let iv = UIImageView()
-        iv.layer.cornerRadius = 25
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(systemName: "person.fill")
-        iv.tintColor = .gray
-        return iv
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 25
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(systemName: "person.fill")
+        imageView.tintColor = .gray
+        return imageView
     }()
     
     let userName: UILabel = {
