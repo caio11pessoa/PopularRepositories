@@ -17,11 +17,21 @@ class ListPullRequestViewController: AbstractViewController {
         tableView.register(CustomListPullRequestCell.self, forCellReuseIdentifier: "CustomPRCell")
         return tableView
     }()
+    let navigationAppearance: UINavigationBarAppearance = {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.boldSystemFont(ofSize: 20)
+        ]
+        return appearance
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewModel.fetchPullRequests(page: "1")
+        
+        setupNavigation()
+        viewModel.fetchPullRequests()
 
         subViews()
         constraints()
@@ -32,7 +42,13 @@ class ListPullRequestViewController: AbstractViewController {
         viewModel.setupLoadingBindings(loadingIndicator: loadingIndicator)
         viewModel.setupViewError(viewController: self)
     }
-    
+
+    func setupNavigation(){
+        title = "Pull Requests"
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
+        navigationController?.navigationBar.standardAppearance = navigationAppearance
+    }
+
     func subViews(){
         view.addSubview(tableView)
         view.addSubview(loadingIndicator)

@@ -9,7 +9,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ListPullRequestViewModel: ViewModelWithPagesDisposeBagAndLoading, ErrorHandler {
+class ListPullRequestViewModel: ViewModelWithPagesDisposeBagAndLoading {
+    
+    var pullRequests = BehaviorRelay<[PullRequest]>(value: [])
     
     var repositoryName: String
     var userName: String
@@ -20,13 +22,12 @@ class ListPullRequestViewModel: ViewModelWithPagesDisposeBagAndLoading, ErrorHan
         self.userName = userName
     }
     
-    var pullRequests = BehaviorRelay<[PullRequest]>(value: [])
     
-    func fetchPullRequests(page: String = "1"){
+    func fetchPullRequests(){
         
         let client = APIClient.shared
         do {
-            try client.getPullRequest(for: repositoryName, user: userName, page: page)
+            try client.getPullRequest(for: repositoryName, user: userName, page: "\(self.page.value)")
                 .subscribe(
                     onNext: { [weak self] result in
                         guard let self = self else { return }
@@ -61,7 +62,7 @@ class ListPullRequestViewModel: ViewModelWithPagesDisposeBagAndLoading, ErrorHan
             .map{$0}
             .subscribe(onNext: { page in
                 
-                self.fetchPullRequests(page: "\(page)")
+                self.fetchPullRequests()
                 
             }).disposed(by: disposeBag)
     }

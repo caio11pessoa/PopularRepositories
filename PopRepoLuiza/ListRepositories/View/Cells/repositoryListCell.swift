@@ -47,7 +47,6 @@ class repositoryListCell: AbstractCell {
     }
     
     func setupViews() {
-        // TODO: HStack e VStack kkkkk dá pra fazer
         let forksStack = setStack(arrangedSubviews: [forksIcon, forksCount])
         let starsStack = setStack(arrangedSubviews: [starsIcon, starsCount])
         
@@ -61,6 +60,7 @@ class repositoryListCell: AbstractCell {
         
         let rightStack = setStack(
             arrangedSubviews: [profilePicture, userName], axis: .vertical, alignment: .center)
+        rightStack.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         let mainStack = setStack(arrangedSubviews: [leftStack, rightStack], distribution: .equalSpacing)
         mainStack.translatesAutoresizingMaskIntoConstraints = false

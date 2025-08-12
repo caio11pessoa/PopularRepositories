@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ListRepositoriesViewModel: ViewModelWithPagesDisposeBagAndLoading, ErrorHandler {
+class ListRepositoriesViewModel: ViewModelWithPagesDisposeBagAndLoading {
     var repositories = BehaviorRelay<[Repository]>(value: [])
     
     func fetchRepositories(){
@@ -26,7 +26,7 @@ class ListRepositoriesViewModel: ViewModelWithPagesDisposeBagAndLoading, ErrorHa
                         }
                     },
                     onError: { error in
-                        let message = self.errorHandler(for: error)
+                        let message = error.localizedDescription
                         self.requestErrorMessage.accept(message)
                     },
                     onCompleted: {
