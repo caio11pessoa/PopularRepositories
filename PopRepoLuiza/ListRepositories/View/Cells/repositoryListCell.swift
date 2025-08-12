@@ -7,22 +7,7 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell{
-    
-    var repositoryName: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = UIColor.systemBlue
-        return label
-    }()
-    
-    var repositoryDescription: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .darkGray
-        label.numberOfLines = 2
-        return label
-    }()
+class repositoryListCell: AbstractCell {
     
     private let forksIcon: UIImageView = {
         let iv = UIImageView(image: UIImage(systemName: "tuningfork"))
@@ -52,23 +37,6 @@ class CustomTableViewCell: UITableViewCell{
         return label
     }()
     
-    private let ownerProfilePicture: UIImageView = {
-        let iv = UIImageView()
-        iv.layer.cornerRadius = 25
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(systemName: "person.fill")
-        iv.tintColor = .gray
-        return iv
-    }()
-    
-    private let ownerUsername: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = UIColor.systemBlue
-        return label
-    }()
-    
     private let ownerFullname: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
@@ -86,30 +54,30 @@ class CustomTableViewCell: UITableViewCell{
     }
     
     func setupViews() {
-        
+        // TODO: HStack e VStack kkkkk dá pra fazer
         let forksStack = setStack(arrangedSubviews: [forksIcon, forksCount])
         let starsStack = setStack(arrangedSubviews: [starsIcon, starsCount])
         
         let forksAndStarsStack = setStack(arrangedSubviews: [forksStack, starsStack], spacing: 12)
         
         let nameAndDescriptionStack = setStack(
-            arrangedSubviews: [repositoryName, repositoryDescription], axis: .vertical)
+            arrangedSubviews: [title, body], axis: .vertical)
         
         let leftStack = setStack(
             arrangedSubviews: [nameAndDescriptionStack, forksAndStarsStack], axis: .vertical, spacing: 12, alignment: .leading)
         
         let rightStack = setStack(
-            arrangedSubviews: [ownerProfilePicture, ownerUsername, ownerFullname], axis: .vertical, alignment: .center)
+            arrangedSubviews: [profilePicture, userName, ownerFullname], axis: .vertical, alignment: .center)
         
         let mainStack = setStack(arrangedSubviews: [leftStack, rightStack], distribution: .equalSpacing)
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(mainStack)
         
-        ownerProfilePicture.translatesAutoresizingMaskIntoConstraints = false
+        profilePicture.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            ownerProfilePicture.widthAnchor.constraint(equalToConstant: 50),
-            ownerProfilePicture.heightAnchor.constraint(equalToConstant: 50),
+            profilePicture.widthAnchor.constraint(equalToConstant: 50),
+            profilePicture.heightAnchor.constraint(equalToConstant: 50),
             
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
@@ -119,13 +87,13 @@ class CustomTableViewCell: UITableViewCell{
     }
     
     func configureCell(with repository: Repository) {
-        repositoryName.text = repository.name
-        repositoryDescription.text = repository.description
-        ownerUsername.text = repository.owner.login
-        ownerFullname.text = "Nome Sobrenome"
+        title.text = repository.name
+        body.text = repository.description
+        userName.text = repository.owner.login
+        ownerFullname.text = "Nome Sobrenome" // Precisa buscar em outra requisição :(
         forksCount.text = "\(repository.forks_count)"
         starsCount.text = "\(repository.stargazers_count)"
-        ownerProfilePicture.loadRemoteImage(url: repository.owner.avatar_url)
+        profilePicture.loadRemoteImage(url: repository.owner.avatar_url)
     }
     
 }
