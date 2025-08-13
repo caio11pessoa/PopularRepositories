@@ -147,13 +147,8 @@
 		3497D1EF2E4A4EE000AC0A82 /* PopRepoLuiza */ = {
 			isa = PBXGroup;
 			children = (
-				3497D2472E4BBC8600AC0A82 /* Network */,
-				3497D2202E4AC60D00AC0A82 /* Components */,
-				3497D22A2E4AE01200AC0A82 /* PullRequestWebView */,
-				3497D2172E4AAB6100AC0A82 /* ListPullRequest */,
-				3497D2082E4A733A00AC0A82 /* ListRepositories */,
-				3497D1FC2E4A4F6E00AC0A82 /* Extensions */,
-				3497D1F92E4A4EF200AC0A82 /* Model */,
+				34D54D812E4C160B00475FD4 /* Core */,
+				34D54D802E4C15F900475FD4 /* Modules */,
 				3497D1E82E4A4EE000AC0A82 /* AppDelegate.swift */,
 				3497D1E92E4A4EE000AC0A82 /* Assets.xcassets */,
 				3497D1EA2E4A4EE000AC0A82 /* Info.plist */,
@@ -294,6 +289,27 @@
 				34D54D772E4BE7A600475FD4 /* Mocks.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		34D54D802E4C15F900475FD4 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				3497D2082E4A733A00AC0A82 /* ListRepositories */,
+				3497D2172E4AAB6100AC0A82 /* ListPullRequest */,
+				3497D22A2E4AE01200AC0A82 /* PullRequestWebView */,
+				3497D2202E4AC60D00AC0A82 /* Components */,
+				3497D2472E4BBC8600AC0A82 /* Network */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		34D54D812E4C160B00475FD4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3497D1FC2E4A4F6E00AC0A82 /* Extensions */,
+				3497D1F92E4A4EF200AC0A82 /* Model */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		49AC2F3FF2460001F0AACD9A /* Frameworks */ = {
