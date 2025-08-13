@@ -294,9 +294,7 @@
 		34D54D802E4C15F900475FD4 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				3497D2082E4A733A00AC0A82 /* ListRepositories */,
-				3497D2172E4AAB6100AC0A82 /* ListPullRequest */,
-				3497D22A2E4AE01200AC0A82 /* PullRequestWebView */,
+				34D54D822E4D195200475FD4 /* Features */,
 				3497D2202E4AC60D00AC0A82 /* Components */,
 				3497D2472E4BBC8600AC0A82 /* Network */,
 			);
@@ -310,6 +308,16 @@
 				3497D1F92E4A4EF200AC0A82 /* Model */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		34D54D822E4D195200475FD4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				3497D22A2E4AE01200AC0A82 /* PullRequestWebView */,
+				3497D2172E4AAB6100AC0A82 /* ListPullRequest */,
+				3497D2082E4A733A00AC0A82 /* ListRepositories */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 		49AC2F3FF2460001F0AACD9A /* Frameworks */ = {
