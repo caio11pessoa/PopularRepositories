@@ -22,12 +22,18 @@ Utilizei MVVM
 │   │
 │   └── 📂 Features
 │       ├── 📂 PullRequestWebView
+│       │  ├── 📂 ViewModel
+│       │  └── 📂 View
 │       │
 │       ├── 📂 ListPullRequest
+│       │  ├── 📂 ViewModel
+│       │  └── 📂 View
 │       │
 │       └── 📂 ListRepositories
+│          ├── 📂 ViewModel
+│          └── 📂 View
 │
-├── 📂 Core
+└── 📂 Core
     ├── 📂 Models
     │
     └── 📂 Extensions
